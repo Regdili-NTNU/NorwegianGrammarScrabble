@@ -1,0 +1,24 @@
+md-content {
+	background-color: #eee;
+}
+md-card {
+	width: 80%;
+	background-color: #fff;
+}
+h2 {
+	margin: 16px;
+	padding-left: 16px;
+}
+md-grid-tile {
+	background-color: #fff;	
+}
+del {
+	text-decoration: line-through;
+	color: #ccc;
+}
+p.right {
+	text-align: right;
+}
+body {
+    position: relative;
+}

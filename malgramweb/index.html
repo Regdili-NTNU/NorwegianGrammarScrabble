@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html ng-app="sparrerApp" ng-controller="sparrerController">
+
+	<head>
+		<!-- Angular Material Dependencies -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-aria.min.js"></script>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+		<script src="http://cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
+		<script src="src/angular-json-rpc.js"></script>
+
+		<link rel="stylesheet" href="assets/style.css">
+  		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+	</head>
+
+
+	<body layout="column" ng-cloak>
+
+			<md-toolbar layout="row" layout-align="center">
+				<md-button class="md-primary" aria-label="Settings">
+					<md-icon md-svg-icon="menu"></md-icon>
+				</md-button>
+				<p>Norwegian Grammar Scrabble - Score {{ score }}</p>
+			</md-toolbar>
+
+			<md-content flex md-scoll-y>
+				<ui-view layout="column" layout-align="start center" layout-fill layout-padding>
+					<md-card class="md-primary">
+						<md-card-content>
+							<md-grid-list md-cols="10" md-row-height="1.5em">
+								<md-grid-tile ng-repeat="word in words">
+									<div ng-if="!word.used">{{word.word}}</div>
+									<del ng-if="word.used">{{word.word}}</del>
+								</md-grid-tile>	
+							</md-grid-list>
+						</md-card-content>
+					</md-card>
+
+					<md-card class="md-primary">
+						<md-card-content>
+							<form ng-submit="analyze()" name="sentenceForm">
+								  <md-input-container flex>
+								<label>Enter sentence here</label>
+								<input ng-model="textInput"/>
+								  </md-input-container>
+							</form>
+
+							<div layout="row" layout-align="space-between">
+							<md-button class="md-raised md-primary" ng-disabled="loading" ng-click="analyze()">{{ loading ? "Checking..." : "Check" }}</md-button>
+							<md-button class="md-raised md-primary" ng-click="endGame($event)">End game</md-button>
+							</div>
+						</md-card-content>
+					</md-card>
+
+					<md-card class="md-primary" ng-repeat="response in responses">
+						<md-card-content ng-if="!response.error">
+							<p> <b>{{ response.score }} points: {{ response.text }}</b> </p>
+							<hl>
+							<ul ng-if="response.malfeedback">
+								<li ng-repeat="message in response.malfeedback">
+									{{ message }}
+								</li>
+							</ul>
+							<div ng-if="response.suggestion">
+							<hl>
+							<p> Suggested correction: <i>{{ response.suggestion }}</i> </p>
+							</div>
+						</md-card-content>
+						<md-card-content ng-if="response.error">
+							<p> <b>{{ response.text }}</b> </p>
+							<hl>
+							<p>{{ response.error }}</p>
+						</md-card-content>
+					</md-card>
+					
+					<md-card class="md-primary">
+						<md-card-content>
+							<p>Use the provided words to form grammatical Norwegian sentences. Nouns, adjectives and verbs are provided in their basic form. These have to be inflected when put together to sentences. Other words can only be used in the form provided.</p>
+							<p>Refresh the browser to start a new game.</p>
+							<p>For comments and feedback, contact elias.aamot@gmail.com</p<
+						</md-card-content>
+					</md-card>
+				</ui-view>
+			</md-content>
+
+
+		<!-- Source code dependencies -->
+		<script src="./src/sparrerApp.js"></script>
+		<script src="./src/sparrerController.js"></script>
+	</body>
+
+</html>
+
