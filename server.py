@@ -226,7 +226,14 @@ class GameServer(object):
 class WebPage(object):
   pass
 
-cherrypy.config.update({'server.socket_port' : 5051, 'server.socket_host' : '0.0.0.0', 'tools.response_headers.on' : True, 'tools.response_headers.headers' : [('Access-Control-Allow-Origin', '*')]})
+cherrypy.config.update({
+  'log.access_file' : 'logs/access.log',
+  'log.error_file' : 'logs/error.log',
+  'server.socket_port' : 5051,
+  'server.socket_host' : '0.0.0.0',
+  'tools.response_headers.on' : True,
+  'tools.response_headers.headers' : [('Access-Control-Allow-Origin', '*')],
+})
 
 cherrypy.tree.mount(GameServer(), "/server")
 cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/jsonrpcserver/malgramweb", "tools.staticdir.index" : "index.html"}})
