@@ -14,7 +14,17 @@ PARSE_ADDRESS = "http://regdili.hf.ntnu.no:8081/malgram/rest/parse"
 ERROR_ADDRESS = "http://regdili.hf.ntnu.no:8081/malgram/rest/messages"
 GENERATE_ADDRESS = "http://regdili.hf.ntnu.no:8081/bongram/rest/generate"
 
-WORD_BLACKLIST = ["period", "quest-mark", "exclam-mark", "comma", "colon", "semicolon", "relcl-comma", "s"]
+WORD_BLACKLIST = [
+  "period",
+  "quest-mark",
+  "exclam-mark",
+  "comma",
+  "colon",
+  "semicolon",
+  "relcl-comma",
+  "s",
+  "quest",
+]
 
 EXCEPTION_STEM_MAP = {
 	"mal_jeg_perspron" : "jeg",
@@ -236,7 +246,7 @@ cherrypy.config.update({
 })
 
 cherrypy.tree.mount(GameServer(), "/server")
-cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/jsonrpcserver/malgramweb", "tools.staticdir.index" : "index.html"}})
+cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/scrabble/malgramweb", "tools.staticdir.index" : "index.html"}})
 
 cherrypy.engine.start()
 cherrypy.engine.block()
