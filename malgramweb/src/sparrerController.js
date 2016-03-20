@@ -79,7 +79,14 @@ app.controller("sparrerController", function($scope, $http, $mdDialog) {
 	}
 
 	$scope.endGame = function(ev) {
-		$mdDialog.show($mdDialog.alert().title("Hello!").clickOutsideToClose(true));
+		var namePrompt = $mdDialog.prompt()
+			.title("Enter username")
+			.textContent("Please enter the name to go with your score.")
+			.ariaLabel("Enter your username")
+   			.targetEvent(ev)
+			.ok("End game")
+			.cancel("Keep playing");
+		$mdDialog.show(namePrompt);
 	}
 
 	$scope.generateWords()
