@@ -50,7 +50,7 @@
 
 							<div layout="row" layout-align="space-between">
 							<md-button class="md-raised md-primary" ng-disabled="loading" ng-click="analyze()">{{ loading ? "Checking..." : "Check" }}</md-button>
-							<md-button class="md-raised md-primary" ng-click="endGame($event)">End game</md-button>
+							<md-button class="md-raised md-primary" ng-click="endGame($event)" ng-disabled="true">End game</md-button>
 							</div>
 						</md-card-content>
 					</md-card>
