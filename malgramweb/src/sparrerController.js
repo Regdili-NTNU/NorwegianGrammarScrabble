@@ -81,7 +81,7 @@ app.controller("sparrerController", function($scope, $http, $mdDialog) {
 	$scope.endGame = function(ev) {
 		var namePrompt = $mdDialog.prompt()
 			.title("Great work!")
-			.textContent("Please enter the name to go with your score.")
+			.textContent("Please enter a name to go with your score.")
 			.ariaLabel("Enter your username")
    			.targetEvent(ev)
 			.ok("End game")
