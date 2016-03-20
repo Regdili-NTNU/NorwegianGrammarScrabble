@@ -80,13 +80,24 @@ app.controller("sparrerController", function($scope, $http, $mdDialog) {
 
 	$scope.endGame = function(ev) {
 		var namePrompt = $mdDialog.prompt()
-			.title("Enter username")
+			.title("Great work!")
 			.textContent("Please enter the name to go with your score.")
 			.ariaLabel("Enter your username")
    			.targetEvent(ev)
 			.ok("End game")
 			.cancel("Keep playing");
-		$mdDialog.show(namePrompt);
+
+		var endCallback = function(result) {
+			var request = {'username' : result, 'score' : $scope.score}
+			$http.post('http://regdili.hf.ntnu.no:5051/server/add_score', request).then(
+				function(result) {
+					location.reload();
+				}, function() {
+					alert("Something went wrong. Please try again.");
+				});
+		};
+
+		$mdDialog.show(namePrompt).then(endCallback, function() {});
 	}
 
 	$scope.generateWords()

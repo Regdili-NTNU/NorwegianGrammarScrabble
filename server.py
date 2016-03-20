@@ -227,11 +227,21 @@ class GameServer(object):
 
   @cherrypy.expose
   @cherrypy.tools.json_in()
-  def score(self):
+  def add_score(self):
     request = cherrypy.request.json
     score = request.get("score")
     username = request.get("username")
     self.scores.append({"score" : score, "user" : username, "timestamp" : time.time()})
+    if len(self.scores) > 100:
+      self.scores = []
+
+  @cherrypy.expose
+  @cherrypy.tools.json_out()
+  def get_scores(self):
+    response = []
+    for score in self.scores:
+      response.append(score) 
+    return json.dumps({'scores' : response})
     
 class WebPage(object):
   pass
