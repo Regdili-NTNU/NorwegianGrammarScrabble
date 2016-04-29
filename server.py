@@ -234,6 +234,7 @@ class GameServer(object):
     self.scores.append({"score" : score, "user" : username, "timestamp" : time.time()})
     if len(self.scores) > 100:
       self.scores = []
+    self.scores = sorted(self.scores, key=lambda score: score["score"], reverse=True)
 
   @cherrypy.expose
   @cherrypy.tools.json_out()
@@ -256,7 +257,7 @@ cherrypy.config.update({
 })
 
 cherrypy.tree.mount(GameServer(), "/server")
-cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/scrabble/malgramweb", "tools.staticdir.index" : "index.html"}})
+cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/scrabble/malgramweb", "tools.staticdir.index" : "scores.html"}})
 
 cherrypy.engine.start()
 cherrypy.engine.block()

@@ -22,3 +22,10 @@ p.right {
 body {
     position: relative;
 }
+
+.score-item:not(:first-child) {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top: 1px solid #eee;
+  font-size: 18px;
+}

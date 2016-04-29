@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html ng-app="sparrerApp" ng-controller="scoresController">
+
+	<head>
+		<!-- Angular Material Dependencies -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+		<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc1/angular-material.js"</script>
+		<script src="http://cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
+
+		<link rel="stylesheet" href="assets/style.css">
+		<link rel="stylesheet" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc1/angular-material.css"</script>
+	</head>
+
+
+	<body layout="column" ng-cloak>
+
+			<md-toolbar layout="row" layout-align="center">
+				<md-button class="md-primary" aria-label="Settings">
+					<md-icon md-svg-icon="menu"></md-icon>
+				</md-button>
+				<p>Norwegian Grammar Scrabble</p>
+			</md-toolbar>
+
+			<md-content flex md-scoll-y>
+				<ui-view layout="column" layout-align="start center" layout-fill layout-padding>
+					<md-card class="md-primary">
+						<md-card-content>
+						<h1>High score</h1>
+						<div class="score-item" ng-repeat="score in scores">
+							<div layout="row" layout-align="space-between">
+								<div>{{score.user}}</div>
+								<div>{{score.score}}</div>
+							</div>
+						</div>
+						<div ng-if="scores.length == 0">
+							No scores have been registered yet. Play a round to be the first!
+						</div>
+						</md-card-content>
+					</md-card>
+
+					<md-card class="md-primary">
+						<md-card-content layout="row" layout-align="center center">
+						<md-button class="md-raised md-primary" ng-href="index.html">
+							Start new game
+						</md-button>
+						</md-card-content>
+					</md-card>
+				</ui-view>
+			</md-content>
+
+
+		<!-- Source code dependencies -->
+		<script src="./src/sparrerApp.js"></script>
+		<script src="./src/scoresController.js"></script>
+	</body>
+
+</html>
+

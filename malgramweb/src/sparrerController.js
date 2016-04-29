@@ -20,7 +20,7 @@ getWords = function(taggedWords) {
   return wordList;
 };
 
-app.controller("sparrerController", function($scope, $http, $mdDialog) {
+app.controller("sparrerController", function($scope, $http, $mdDialog, $location) {
 	$scope.score = 0;
 	$scope.responses = [];
 	$scope.words = [];
@@ -91,7 +91,7 @@ app.controller("sparrerController", function($scope, $http, $mdDialog) {
 			var request = {'username' : result, 'score' : $scope.score}
 			$http.post('http://regdili.hf.ntnu.no:5051/server/add_score', request).then(
 				function(result) {
-					location.reload();
+					location.replace("scores.html");
 				}, function() {
 					alert("Something went wrong. Please try again.");
 				});
