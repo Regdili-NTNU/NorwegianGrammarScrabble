@@ -31,7 +31,7 @@
 				<ui-view layout="column" layout-align="start center" layout-fill layout-padding>
 					<md-card class="md-primary">
 						<md-card-content>
-						<h1>High score</h1>
+						<h1>{{high_score_string()}}</h1>
 						<div class="score-item" ng-repeat="score in scores">
 							<div layout="row" layout-align="space-between">
 								<div>{{score.user}}</div>
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 						<div ng-if="scores.length == 0">
-							No scores have been registered yet. Play a round to be the first!
+							{{no_score_string()}}
 						</div>
 						</md-card-content>
 					</md-card>
@@ -47,7 +47,7 @@
 					<md-card class="md-primary">
 						<md-card-content layout="row" layout-align="center center">
 						<md-button class="md-raised md-primary" ng-href="index.html">
-							Start new game
+							{{start_new_game_string()}}
 						</md-button>
 						</md-card-content>
 					</md-card>

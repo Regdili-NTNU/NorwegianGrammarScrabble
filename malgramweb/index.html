@@ -44,14 +44,14 @@
 						<md-card-content>
 							<form ng-submit="analyze()" name="sentenceForm">
 								  <md-input-container layout-fill flex>
-								<label>Enter sentence here</label>
+								<label>{{ enter_sentence_string() }}</label>
 								<input ng-model="textInput" />
 								  </md-input-container>
 							</form>
 
 							<div layout="row" layout-align="space-between">
-							<md-button class="md-raised md-primary" ng-disabled="loading" ng-click="analyze()">{{ loading ? "Checking..." : "Check" }}</md-button>
-							<md-button class="md-raised md-primary" ng-click="endGame($event)" ng-disabled="false">End game</md-button>
+							<md-button class="md-raised md-primary" ng-disabled="loading" ng-click="analyze()">{{ loading ? checking_string() : check_string() }}</md-button>
+							<md-button class="md-raised md-primary" ng-click="endGame($event)" ng-disabled="false">{{ end_game_string() }}</md-button>
 							</div>
 						</md-card-content>
 					</md-card>
@@ -79,9 +79,9 @@
 					
 					<md-card class="md-primary">
 						<md-card-content>
-							<p>Use the provided words to form grammatical Norwegian sentences. Nouns, adjectives and verbs are provided in their basic form. These have to be inflected when put together to sentences. Other words can only be used in the form provided.</p>
-							<p>Refresh the browser to start a new game.</p>
-							<p>For comments and feedback, contact elias.aamot@gmail.com</p<
+							<p>{{ description_string_1() }}</p>
+							<p>{{ description_string_2() }}</p>
+							<p>{{ description_string_3() }}</p>
 						</md-card-content>
 					</md-card>
 				</ui-view>
