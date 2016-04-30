@@ -67,6 +67,10 @@ with open('malgramweb/src/translationService.js', 'w') as outfile:
 \t\t}
 \t\treturn "en";
 \t};
+\t
+\tthis.getRtl = function() {
+\t\t return this.getLanguage() == "ar" : "rtl" : "ltr";
+\t};
 """)
   for string_name, lang_string_map in translations.iteritems():
     outfile.write("\n" + create_single_rule(string_name, lang_string_map))

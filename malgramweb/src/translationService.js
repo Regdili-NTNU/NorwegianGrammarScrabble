@@ -24,6 +24,10 @@ app.service('translationService', function($window) {
 		}
 		return "en";
 	};
+	
+	this.getRtl = function() {
+		 return this.getLanguage() == "ar";
+	};
 
 	this.start_new_game_string = function() {
 		var language = this.getLanguage();
