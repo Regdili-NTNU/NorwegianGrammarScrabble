@@ -29,3 +29,7 @@ body {
   border-top: 1px solid #eee;
   font-size: 18px;
 }
+
+.md-button.select-language {
+  min-width: 400px;
+}
