@@ -20,7 +20,9 @@ getWords = function(taggedWords) {
   return wordList;
 };
 
-app.controller("sparrerController", function($scope, $http, $mdDialog, $location, $window) {
+app.controller("sparrerController", function($scope, $http, $mdDialog, $location, translationService) {
+	$scope.ts = translationService;
+
 	$scope.score = 0;
 	$scope.responses = [];
 	$scope.words = [];
@@ -101,79 +103,4 @@ app.controller("sparrerController", function($scope, $http, $mdDialog, $location
 	}
 
 	$scope.generateWords()
-
-	/**
-	 * I18n functions
-	 */
-
-	$scope.getLanguage = function() {
-		var languageString = $window.navigator.language;
-		if (languageString.indexOf('no') >= 0) {
-			return "no";
-		}
-		return "en";
-	}
-
-	$scope.check_string = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Sjekk setninga"; 
-		}
-		return "Check";
-	}
-
-	$scope.checking_string = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Sjekker..."; 
-		}
-		return "Checking...";
-	}
-
-	$scope.description_string_1 = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Bruk ordene du har fått tildelt til å utforme grammatisk " +
-				"korrekte setninger på norsk. Substantiv, adjektiv og verb er " +
-				"oppgitt i ordbokform. Disse må du bøye for å bygge setninger " +
-				"med dem. Andre ord kan kun bli brukt i forma som er oppgitt.";
-		}
-		return "Use the provided words to form grammatical Norwegian sentences. " +
-		       "Nouns, adjectives and verbs are provided in their basic form. These " +
-		       "have to be inflected when put together to sentences. Other words " +
-		       "can only be used in the form provided.";
-	}	
-	
-	$scope.description_string_2 = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Last inn sida på nytt for å starte en ny runde.";
-		}
-		return "Refresh the browser to start a new game.";
-	}	
-
-	$scope.description_string_3 = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Hvis du har tilbakemeldinger eller kommentarer, ta gjerne kontakt " +
-				"på e-post: elias.aamot@gmail.com"; 
-		}
-		return "For comments and feedback, contact elias.aamot@gmail.com";
-	}	
-
-	$scope.end_game_string = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Avslutt runden"; 
-		}
-		return "End game";
-	}
-
-	$scope.enter_sentence_string = function() {
-		var language = $scope.getLanguage();
-		if (language == "no") {
-			return "Skriv inn setninga di her"; 
-		}
-		return "Enter sentence here";
-	}
 });

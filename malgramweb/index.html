@@ -44,14 +44,14 @@
 						<md-card-content>
 							<form ng-submit="analyze()" name="sentenceForm">
 								  <md-input-container layout-fill flex>
-								<label>{{ enter_sentence_string() }}</label>
+								<label>{{ ts.enter_sentence_string() }}</label>
 								<input ng-model="textInput" />
 								  </md-input-container>
 							</form>
 
 							<div layout="row" layout-align="space-between">
-							<md-button class="md-raised md-primary" ng-disabled="loading" ng-click="analyze()">{{ loading ? checking_string() : check_string() }}</md-button>
-							<md-button class="md-raised md-primary" ng-click="endGame($event)" ng-disabled="false">{{ end_game_string() }}</md-button>
+							<md-button class="md-raised md-primary" ng-disabled="loading" ng-click="analyze()">{{ loading ? ts.checking_string() : ts.check_string() }}</md-button>
+							<md-button class="md-raised md-primary" ng-click="endGame($event)" ng-disabled="false">{{ ts.end_game_string() }}</md-button>
 							</div>
 						</md-card-content>
 					</md-card>
@@ -79,9 +79,9 @@
 					
 					<md-card class="md-primary">
 						<md-card-content>
-							<p>{{ description_string_1() }}</p>
-							<p>{{ description_string_2() }}</p>
-							<p>{{ description_string_3() }}</p>
+							<p>{{ ts.description_string_1() }}</p>
+							<p>{{ ts.description_string_2() }}</p>
+							<p>{{ ts.description_string_3() }}</p>
 						</md-card-content>
 					</md-card>
 				</ui-view>
@@ -90,6 +90,7 @@
 
 		<!-- Source code dependencies -->
 		<script src="./src/sparrerApp.js"></script>
+		<script src="./src/translationService.js"></script>
 		<script src="./src/sparrerController.js"></script>
 	</body>
 

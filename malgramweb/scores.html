@@ -31,7 +31,7 @@
 				<ui-view layout="column" layout-align="start center" layout-fill layout-padding>
 					<md-card class="md-primary">
 						<md-card-content>
-						<h1>{{high_score_string()}}</h1>
+						<h1>{{ts.high_score_string()}}</h1>
 						<div class="score-item" ng-repeat="score in scores">
 							<div layout="row" layout-align="space-between">
 								<div>{{score.user}}</div>
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 						<div ng-if="scores.length == 0">
-							{{no_score_string()}}
+							{{ts.no_score_string()}}
 						</div>
 						</md-card-content>
 					</md-card>
@@ -47,7 +47,7 @@
 					<md-card class="md-primary">
 						<md-card-content layout="row" layout-align="center center">
 						<md-button class="md-raised md-primary" ng-href="index.html">
-							{{start_new_game_string()}}
+							{{ts.start_new_game_string()}}
 						</md-button>
 						</md-card-content>
 					</md-card>
@@ -57,6 +57,7 @@
 
 		<!-- Source code dependencies -->
 		<script src="./src/sparrerApp.js"></script>
+		<script src="./src/translationService.js"></script>
 		<script src="./src/scoresController.js"></script>
 	</body>
 
