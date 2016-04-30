@@ -1,0 +1,55 @@
+"""
+  Reads the files in the translation directory and creates the translation
+  service JavaScript code.
+"""
+import os
+
+# (string_name) => (language_name) => actual_string
+translations = {}
+
+# Read inputs
+for filename in os.listdir("malgramweb/translations"):
+  lang_to_string = {}
+  with open("malgramweb/translations/" + filename) as tfile:
+    for line in tfile:
+      line = line.strip()
+      # Skip comments
+      if line[0] == "#":
+        continue
+      split = line.split("\t")
+      # Skip malformed lines with a warning
+      if len(split) != 2:
+        print "Skipping malformed line: " + line
+      
+      lang_to_string[split[0]] = split[1]
+  translations[filename] = lang_to_string
+
+
+# Write service file
+def create_single_rule(string_name, lang_to_string_map):
+  rstring = """\tthis.%s = function() {
+\t\tvar language = this.getLanguage();\n""" % string_name
+  for lang, string in lang_to_string_map.iteritems():
+    if lang == "en":
+      continue
+    rstring += """\t\tif (language == '%s') {
+\t\t\treturn '%s';
+\t\t}\n""" % (lang, string)
+  rstring += """\t\treturn '%s';
+\t}\n""" % lang_to_string_map["en"] 
+  return rstring
+
+
+with open('malgramweb/src/translationService.js', 'w') as outfile:
+  outfile.write("""app.service('translationService', function($window) {
+\tthis.getLanguage = function() {
+\t\tvar languageString = $window.navigator.language;
+\t\tif (languageString.indexOf('no') >= 0) {
+\t\t\treturn "no";
+\t\t}
+\t\treturn "en";
+\t};
+""")
+  for string_name, lang_string_map in translations.iteritems():
+    outfile.write("\n" + create_single_rule(string_name, lang_string_map))
+  outfile.write("});")
