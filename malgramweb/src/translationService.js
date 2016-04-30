@@ -28,6 +28,30 @@ app.service('translationService', function($window) {
 	this.getRtl = function() {
 		 return this.getLanguage() == "ar" ? "rtl" : "ltr";
 	};
+	this.start_new_game_string_no = function() {
+		 return "Start ny runde (Norsk)";
+	};
+	this.start_new_game_string_en = function() {
+		 return "Start new game (english)";
+	};
+	this.start_new_game_string_pl = function() {
+		 return "Start new game (polish)";
+	};
+	this.start_new_game_string_it = function() {
+		 return "Start new game (italiano)";
+	};
+	this.start_new_game_string_de = function() {
+		 return "Neues Spiel (Deutsch)";
+	};
+	this.start_new_game_string_zh = function() {
+		 return "Start new game (zhongwen)";
+	};
+	this.start_new_game_string_ar = function() {
+		 return "Start new game (arabic)";
+	};
+	this.start_new_game_string_bg = function() {
+		 return "Start new game (bulgarian)";
+	};
 
 	this.start_new_game_string = function() {
 		var language = this.getLanguage();

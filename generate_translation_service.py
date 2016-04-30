@@ -71,6 +71,30 @@ with open('malgramweb/src/translationService.js', 'w') as outfile:
 \tthis.getRtl = function() {
 \t\t return this.getLanguage() == "ar" ? "rtl" : "ltr";
 \t};
+\tthis.start_new_game_string_no = function() {
+\t\t return "Start ny runde (Norsk)";
+\t};
+\tthis.start_new_game_string_en = function() {
+\t\t return "Start new game (english)";
+\t};
+\tthis.start_new_game_string_pl = function() {
+\t\t return "Start new game (polish)";
+\t};
+\tthis.start_new_game_string_it = function() {
+\t\t return "Start new game (italiano)";
+\t};
+\tthis.start_new_game_string_de = function() {
+\t\t return "Neues Spiel (Deutsch)";
+\t};
+\tthis.start_new_game_string_zh = function() {
+\t\t return "Start new game (zhongwen)";
+\t};
+\tthis.start_new_game_string_ar = function() {
+\t\t return "Start new game (arabic)";
+\t};
+\tthis.start_new_game_string_bg = function() {
+\t\t return "Start new game (bulgarian)";
+\t};
 """)
   for string_name, lang_string_map in translations.iteritems():
     outfile.write("\n" + create_single_rule(string_name, lang_string_map))
