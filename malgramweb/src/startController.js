@@ -1,6 +1,7 @@
 app.controller("startController", function($scope, $http, $mdDialog, translationService) {
 	$scope.scores = [];
 	$scope.ts = translationService;
+	$scope.ts.setLanguage(undefined);
 
 	$scope.getScores = function() {
 			$http.post('http://regdili.hf.ntnu.no:5051/server/get_scores').then(

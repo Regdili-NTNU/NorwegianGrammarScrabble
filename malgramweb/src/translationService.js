@@ -1,5 +1,15 @@
 app.service('translationService', function($window) {
+	this.language = undefined;
+	
+	this.setLanguage = function(lang) {
+		this.language = lang;
+	};
+	
 	this.getLanguage = function() {
+		if (this.language != undefined) {
+			return this.language;
+		}
+		
 		var languageString = $window.navigator.language;
 		if (languageString.indexOf('no') >= 0) {
 			return "no";

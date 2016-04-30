@@ -42,7 +42,17 @@ def create_single_rule(string_name, lang_to_string_map):
 
 with open('malgramweb/src/translationService.js', 'w') as outfile:
   outfile.write("""app.service('translationService', function($window) {
+\tthis.language = undefined;
+\t
+\tthis.setLanguage = function(lang) {
+\t\tthis.language = lang;
+\t};
+\t
 \tthis.getLanguage = function() {
+\t\tif (this.language != undefined) {
+\t\t\treturn this.language;
+\t\t}
+\t\t
 \t\tvar languageString = $window.navigator.language;
 \t\tif (languageString.indexOf('no') >= 0) {
 \t\t\treturn "no";

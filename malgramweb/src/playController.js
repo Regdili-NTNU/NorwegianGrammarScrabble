@@ -22,12 +22,15 @@ getWords = function(taggedWords) {
 
 app.controller("playController", function($scope, $http, $mdDialog, $location, $routeParams, translationService) {
 	$scope.ts = translationService;
+	if ($routeParams.language) {
+		$scope.ts.setLanguage($routeParams.language);
+	}
 
 	$scope.score = 0;
 	$scope.responses = [];
 	$scope.words = [];
 	$scope.loading = false;
-	$scope.param = $routeParams;
+
 
 	$scope.analyze = function() {
 		var request = {sentence:$scope.textInput, words:getWords($scope.words), language:$scope.ts.getLanguage()};
