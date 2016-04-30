@@ -56,6 +56,16 @@ EXCEPTION_STEM_MAP = {
 	"mal_seg_for_dere_refl" : "seg",
 	}
 
+LANGUAGE_NAME_TO_NUMBER_MAP = {
+	"en" : 1,
+	"pl" : 2,
+	"it" : 3,
+	"de" : 4,
+	"zh" : 5,
+	"ar" : 6,
+	"bg" : 7,
+}
+
 def read_weighted(filename):
   words = []
   number = 0
@@ -84,7 +94,7 @@ class GameServer(object):
     self.parses = 0
     self.scores = []
 
-  def call_chain(self, sentence, available_words):
+  def call_chain(self, sentence, language, available_words):
     response = {"original_sentence" : sentence}
     parse_xml = self.call_parse(sentence)
 
@@ -109,7 +119,7 @@ class GameServer(object):
       return response
 
     response["used_words"] = used_words
-    error_xml = self.call_error(best_parse)
+    error_xml = self.call_error(best_parse, language)
     error_messages = self.add_error_messages(error_xml)
 
     if error_messages:
@@ -181,8 +191,10 @@ class GameServer(object):
         illegal_words.append(used_word)
     return illegal_words
 
-  def call_error(self, syntax_tree):
-    request = {"syntax" : ET.tostring(syntax_tree)}
+  def call_error(self, syntax_tree, language):
+    language_number = LANGUAGE_NAME_TO_NUMBER_MAP.get(language)
+    if language_number == None: language_number = 1
+    request = {"syntax" : ET.tostring(syntax_tree), "language" : language_number}
     request_address = ERROR_ADDRESS + "?" + urllib.urlencode(request)
     response = urllib2.urlopen(request_address).read()
     return ET.fromstring(response)
@@ -206,9 +218,10 @@ class GameServer(object):
     self.parses += 1
     request = cherrypy.request.json
     sentence = request.get("sentence")
+    language = request.get("language")
     words = request.get("words")
     sentence = sentence.encode("utf-8")
-    response = self.call_chain(sentence, words)
+    response = self.call_chain(sentence, language, words)
     return json.dumps(response)
 
   @cherrypy.expose

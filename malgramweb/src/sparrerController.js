@@ -29,7 +29,7 @@ app.controller("sparrerController", function($scope, $http, $mdDialog, $location
 	$scope.loading = false;
 
 	$scope.analyze = function() {
-		var request = {sentence:$scope.textInput, words:getWords($scope.words)};
+		var request = {sentence:$scope.textInput, words:getWords($scope.words), language:$scope.ts.getLanguage()};
 		$scope.loading = true;
 		$http.post('http://regdili.hf.ntnu.no:5051/server/parse', request)
 			.then(function successCallback(response) {

@@ -4,6 +4,24 @@ app.service('translationService', function($window) {
 		if (languageString.indexOf('no') >= 0) {
 			return "no";
 		}
+		if (languageString.indexOf('pl') >= 0) {
+			return "pl";
+		}
+		if (languageString.indexOf('it') >= 0) {
+			return "it";
+		}
+		if (languageString.indexOf('de') >= 0) {
+			return "de";
+		}
+		if (languageString.indexOf('zh') >= 0) {
+			return "zh";
+		}
+		if (languageString.indexOf('ar') >= 0) {
+			return "ar";
+		}
+		if (languageString.indexOf('bg') >= 0) {
+			return "bg";
+		}
 		return "en";
 	};
 

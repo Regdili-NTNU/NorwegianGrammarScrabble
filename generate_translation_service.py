@@ -47,6 +47,24 @@ with open('malgramweb/src/translationService.js', 'w') as outfile:
 \t\tif (languageString.indexOf('no') >= 0) {
 \t\t\treturn "no";
 \t\t}
+\t\tif (languageString.indexOf('pl') >= 0) {
+\t\t\treturn "pl";
+\t\t}
+\t\tif (languageString.indexOf('it') >= 0) {
+\t\t\treturn "it";
+\t\t}
+\t\tif (languageString.indexOf('de') >= 0) {
+\t\t\treturn "de";
+\t\t}
+\t\tif (languageString.indexOf('zh') >= 0) {
+\t\t\treturn "zh";
+\t\t}
+\t\tif (languageString.indexOf('ar') >= 0) {
+\t\t\treturn "ar";
+\t\t}
+\t\tif (languageString.indexOf('bg') >= 0) {
+\t\t\treturn "bg";
+\t\t}
 \t\treturn "en";
 \t};
 """)
