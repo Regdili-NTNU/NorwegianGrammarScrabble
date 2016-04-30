@@ -26,7 +26,7 @@ app.service('translationService', function($window) {
 	};
 	
 	this.getRtl = function() {
-		 return this.getLanguage() == "ar";
+		 return this.getLanguage() == "ar" ? "rtl" : "ltr";
 	};
 
 	this.start_new_game_string = function() {

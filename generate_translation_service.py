@@ -69,7 +69,7 @@ with open('malgramweb/src/translationService.js', 'w') as outfile:
 \t};
 \t
 \tthis.getRtl = function() {
-\t\t return this.getLanguage() == "ar" : "rtl" : "ltr";
+\t\t return this.getLanguage() == "ar" ? "rtl" : "ltr";
 \t};
 """)
   for string_name, lang_string_map in translations.iteritems():
