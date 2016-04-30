@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+			<md-content flex md-scoll-y>
+				<ui-view layout="column" layout-align="start center" layout-fill layout-padding>
+					<md-card class="md-primary">
+						<md-card-content>
+						<h1>{{ts.high_score_string()}}</h1>
+						<div class="score-item" ng-repeat="score in scores">
+							<div layout="row" layout-align="space-between">
+								<div>{{score.user}}</div>
+								<div>{{score.score}}</div>
+							</div>
+						</div>
+						<div ng-if="scores.length == 0">
+							{{ts.no_score_string()}}
+						</div>
+						</md-card-content>
+					</md-card>
+
+					<md-card class="md-primary">
+						<md-card-content layout="column" layout-align="center center">
+						<md-button class="md-raised md-primary select-language" ng-href="#/play">
+							{{ts.start_new_game_string()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/no" ng-if="ts.getLanguage() != 'no'">
+							{{ts.start_new_game_string_no()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/en" ng-if="ts.getLanguage() != 'en'">
+							{{ts.start_new_game_string_en()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/ar" ng-if="ts.getLanguage() != 'ar'">
+							{{ts.start_new_game_string_ar()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/pl" ng-if="ts.getLanguage() != 'pl'">
+							{{ts.start_new_game_string_pl()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/it" ng-if="ts.getLanguage() != 'it'">
+							{{ts.start_new_game_string_it()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/de" ng-if="ts.getLanguage() != 'de'">
+							{{ts.start_new_game_string_de()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/zh" ng-if="ts.getLanguage() != 'zh'">
+							{{ts.start_new_game_string_zh()}}
+						</md-button>
+						<md-button class="md-raised md-primary select-language" ng-href="#/play/bg" ng-if="ts.getLanguage() != 'bg'">
+							{{ts.start_new_game_string_bg()}}
+						</md-button>
+						</md-card-content>
+					</md-card>
+				</ui-view>
+			</md-content>

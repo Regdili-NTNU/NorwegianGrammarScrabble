@@ -270,7 +270,7 @@ cherrypy.config.update({
 })
 
 cherrypy.tree.mount(GameServer(), "/server")
-cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/scrabble/malgramweb", "tools.staticdir.index" : "scores.html"}})
+cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/scrabble/malgramweb", "tools.staticdir.index" : "index.html"}})
 
 cherrypy.engine.start()
 cherrypy.engine.block()

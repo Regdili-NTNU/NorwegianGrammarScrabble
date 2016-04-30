@@ -20,13 +20,14 @@ getWords = function(taggedWords) {
   return wordList;
 };
 
-app.controller("sparrerController", function($scope, $http, $mdDialog, $location, translationService) {
+app.controller("playController", function($scope, $http, $mdDialog, $location, $routeParams, translationService) {
 	$scope.ts = translationService;
 
 	$scope.score = 0;
 	$scope.responses = [];
 	$scope.words = [];
 	$scope.loading = false;
+	$scope.param = $routeParams;
 
 	$scope.analyze = function() {
 		var request = {sentence:$scope.textInput, words:getWords($scope.words), language:$scope.ts.getLanguage()};

@@ -1,4 +1,4 @@
-app.controller("scoresController", function($scope, $http, $mdDialog, translationService) {
+app.controller("startController", function($scope, $http, $mdDialog, translationService) {
 	$scope.scores = [];
 	$scope.ts = translationService;
 

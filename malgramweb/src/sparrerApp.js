@@ -1,5 +1,5 @@
 var app = angular.module("sparrerApp", ['ngRoute', 'ngMaterial'])
-	.config(function($mdThemingProvider, $mdIconProvider) {
+	.config(function($mdThemingProvider, $mdIconProvider, $routeProvider) {
 
 		$mdIconProvider
 			.defaultIconSet("./assets/img/menu.svg", 128)
@@ -7,4 +7,14 @@ var app = angular.module("sparrerApp", ['ngRoute', 'ngMaterial'])
 
 		$mdThemingProvider.theme('default')
 			.primaryPalette('indigo');
+
+		$routeProvider.when('/play/:language?', {
+			templateUrl: 'play.html',
+			controller: 'playController'
+		}).when('/start', {
+			templateUrl: 'start.html',
+			controller: 'startController'
+		}).otherwise({
+			redirectTo: '/start'
+		});
 	});
