@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-			<md-content flex md-scoll-y dir="{{ts.getRtl()}}">
-				<ui-view layout="column" layout-align="start center" layout-fill layout-padding>
+				<ui-view layout="column" layout-align="start center" layout-fill layout-padding dir="{{ts.getRtl()}}">
 					<md-card class="md-primary">
 						<md-card-content>
 						<h1>{{ts.high_score_string()}}</h1>
@@ -48,4 +47,3 @@
 						</md-card-content>
 					</md-card>
 				</ui-view>
-			</md-content>

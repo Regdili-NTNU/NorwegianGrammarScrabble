@@ -4,6 +4,7 @@ md-content {
 md-card {
 	width: 80%;
 	background-color: #fff;
+	color: #000;
 }
 h2 {
 	margin: 16px;

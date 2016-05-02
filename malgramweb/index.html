@@ -20,14 +20,17 @@
 
 	<body layout="column" ng-cloak>
 
-			<md-toolbar layout="row" layout-align="center">
+			<md-toolbar layout="row" layout-align="space-between">
 				<md-button class="md-primary" aria-label="Settings">
 					<md-icon md-svg-icon="menu"></md-icon>
 				</md-button>
 				<p>Norwegian Grammar Scrabble - Score {{ score }}</p>
+				<div></div>
 			</md-toolbar>
 
-			<div ng-view></div>
+			<md-content flex md-scoll-y>
+				<div ng-view></div>
+			</md-content>
 
 		<!-- Source code dependencies -->
 		<script src="./src/sparrerApp.js"></script>
