@@ -95,6 +95,22 @@ app.service('translationService', function($window) {
 		return 'No scores have been registered yet. Play a round to be the first!';
 	}
 
+	this.checking_string = function() {
+		var language = this.getLanguage();
+		if (language == 'no') {
+			return 'Sjekker...';
+		}
+		return 'Checking...';
+	}
+
+	this.points_string = function() {
+		var language = this.getLanguage();
+		if (language == 'no') {
+			return 'poeng';
+		}
+		return 'points';
+	}
+
 	this.high_score_string = function() {
 		var language = this.getLanguage();
 		if (language == 'no') {
@@ -135,11 +151,11 @@ app.service('translationService', function($window) {
 		return 'End game';
 	}
 
-	this.checking_string = function() {
+	this.suggested_correction_string = function() {
 		var language = this.getLanguage();
 		if (language == 'no') {
-			return 'Sjekker...';
+			return 'Vi foreslår i stedet';
 		}
-		return 'Checking...';
+		return 'Suggested correction';
 	}
 });

@@ -30,7 +30,7 @@
 
 					<md-card class="md-primary" ng-repeat="response in responses">
 						<md-card-content ng-if="!response.error">
-							<p> <b>{{ response.score }} points: {{ response.text }}</b> </p>
+							<p> <b>{{ response.score }} {{ ts.points_string() }}: {{ response.text }}</b> </p>
 							<hl>
 							<ul ng-if="response.malfeedback">
 								<li ng-repeat="message in response.malfeedback">
@@ -39,7 +39,7 @@
 							</ul>
 							<div ng-if="response.suggestion">
 							<hl>
-							<p> Suggested correction: <i>{{ response.suggestion }}</i> </p>
+							<p> {{ ts.suggested_correction_string() }}: <i>{{ response.suggestion }}</i> </p>
 							</div>
 						</md-card-content>
 						<md-card-content ng-if="response.error">
