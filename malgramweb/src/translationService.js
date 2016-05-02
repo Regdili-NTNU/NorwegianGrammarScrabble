@@ -119,6 +119,22 @@ app.service('translationService', function($window) {
 		return 'High Score';
 	}
 
+	this.great_work_string = function() {
+		var language = this.getLanguage();
+		if (language == 'no') {
+			return 'Bra jobba!';
+		}
+		return 'Great work!';
+	}
+
+	this.keep_playing_string = function() {
+		var language = this.getLanguage();
+		if (language == 'no') {
+			return 'Spill videre';
+		}
+		return 'Keep playing';
+	}
+
 	this.description_string_3 = function() {
 		var language = this.getLanguage();
 		if (language == 'no') {
@@ -149,6 +165,14 @@ app.service('translationService', function($window) {
 			return 'Avslutt runden';
 		}
 		return 'End game';
+	}
+
+	this.end_game_description_string = function() {
+		var language = this.getLanguage();
+		if (language == 'no') {
+			return 'Fyll inn et navn for få poengsummen din inn på rekordtavla.';
+		}
+		return 'Please enter a name to go with your score.';
 	}
 
 	this.suggested_correction_string = function() {

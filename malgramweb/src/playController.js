@@ -88,12 +88,11 @@ app.controller("playController", function($scope, $http, $mdDialog, $location, $
 
 	$scope.endGame = function(ev) {
 		var namePrompt = $mdDialog.prompt()
-			.title("Great work!")
-			.textContent("Please enter a name to go with your score.")
-			.ariaLabel("Enter your username")
+			.title($scope.ts.great_work_string())
+			.textContent($scope.ts.end_game_description_string())
    			.targetEvent(ev)
-			.ok("End game")
-			.cancel("Keep playing");
+			.ok($scope.ts.end_game_string())
+			.cancel($scope.ts.keep_playing_string());
 
 		var endCallback = function(result) {
 			var request = {'username' : result, 'score' : $scope.pointService.score}
