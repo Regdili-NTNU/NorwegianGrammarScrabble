@@ -130,7 +130,7 @@ app.service('translationService', function($window) {
 	this.description_string_2 = function() {
 		var language = this.getLanguage();
 		if (language == 'no') {
-			return 'Last inn sida på nytt for å start en ny runde.';
+			return 'Last inn sida på nytt for å starte en ny runde.';
 		}
 		return 'Refresh the browser to start a new game.';
 	}
@@ -138,9 +138,9 @@ app.service('translationService', function($window) {
 	this.description_string_1 = function() {
 		var language = this.getLanguage();
 		if (language == 'no') {
-			return 'Bruk ordene du har fått tildelt til å utforme grammatisk korrekt setninger på norsk. Substantiv, adjektiv og verb er oppgitt i ordbokform. Disse må du bøye for å bygge setninger med dem. Andre ord kan kun bli brukt i forma som er oppgitt.';
+			return 'Bruk ordene du har fått tildelt til å utforme grammatisk korrekte setninger på norsk. Substantiv, adjektiv og verb er oppgitt i ordbokform. Disse må du bøye for å bygge setninger med dem. Andre ord kan kun bli brukt i forma som er oppgitt.';
 		}
-		return 'Use the provided words to form grammatical Norwegian sentences. Nous, adjectives and vers are provided in their basic form. These have to be inflected when put together to sentences. Other words can only be used in the form provided.';
+		return 'Use the provided words to form grammatical Norwegian sentences. Nouns, adjectives and verbs are provided in their basic form. These have to be inflected when put together to sentences. Other words can only be used in the form provided.';
 	}
 
 	this.end_game_string = function() {
