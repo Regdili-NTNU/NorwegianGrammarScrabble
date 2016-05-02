@@ -231,6 +231,7 @@ class GameServer(object):
     words = []
     for word_list in word_lists:
        words.extend(random.sample(word_list[1], word_list[0]))
+    words = sorted(words)
     response = {'words' : words}
     return json.dumps(response)
 
