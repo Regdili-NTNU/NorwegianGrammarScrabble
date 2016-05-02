@@ -18,23 +18,29 @@
 	</head>
 
 
-	<body layout="column" ng-cloak>
+	<body layout="column" ng-cloak ng-controller="indexController">
 
 			<md-toolbar layout="row" layout-align="space-between">
 				<md-button class="md-primary" aria-label="Settings">
 					<md-icon md-svg-icon="menu"></md-icon>
 				</md-button>
-				<p>Norwegian Grammar Scrabble - Score {{ score }}</p>
+				<p ng-if="pointService.score != undefined">Norwegian Grammar Scrabble - {{ ts.points_string() }} {{ pointService.score }}</p>
+				<p ng-if="pointService.score == undefined">Norwegian Grammar Scrabble</p>
 				<div></div>
 			</md-toolbar>
 
-			<md-content flex md-scoll-y>
-				<div ng-view></div>
+			<md-content
+				ng-view
+				flex
+				md-scoll-y
+				score="score">
 			</md-content>
 
 		<!-- Source code dependencies -->
 		<script src="./src/sparrerApp.js"></script>
 		<script src="./src/translationService.js"></script>
+		<script src="./src/pointService.js"></script>
+		<script src="./src/indexController.js"></script>
 		<script src="./src/playController.js"></script>
 		<script src="./src/startController.js"></script>
 	</body>

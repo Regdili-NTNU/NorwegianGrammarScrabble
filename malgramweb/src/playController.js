@@ -20,13 +20,15 @@ getWords = function(taggedWords) {
   return wordList;
 };
 
-app.controller("playController", function($scope, $http, $mdDialog, $location, $routeParams, translationService) {
+app.controller("playController", function($scope, $http, $mdDialog, $location, $routeParams, translationService, pointService) {
 	$scope.ts = translationService;
 	if ($routeParams.language) {
 		$scope.ts.setLanguage($routeParams.language);
 	}
 
-	$scope.score = 0;
+	$scope.pointService = pointService;
+	$scope.pointService.score = 0;
+
 	$scope.responses = [];
 	$scope.words = [];
 	$scope.loading = false;
@@ -46,7 +48,7 @@ app.controller("playController", function($scope, $http, $mdDialog, $location, $
 					response.score = data.score;
 					response.malfeedback = data.malfeedback;
 					response.suggestion = data.suggestion;
-					$scope.score += data.score;
+					$scope.pointService.score += data.score;
 					$scope.markWordsAsUsed(data.used_words);
 				}
 				$scope.responses.unshift(response);
@@ -94,10 +96,11 @@ app.controller("playController", function($scope, $http, $mdDialog, $location, $
 			.cancel("Keep playing");
 
 		var endCallback = function(result) {
-			var request = {'username' : result, 'score' : $scope.score}
+			var request = {'username' : result, 'score' : $scope.pointService.score}
 			$http.post('http://regdili.hf.ntnu.no:5051/server/add_score', request).then(
 				function(result) {
-					location.replace("scores.html");
+					$scope.pointService.score = undefined;
+					$location.path("/start");
 				}, function() {
 					alert("Something went wrong. Please try again.");
 				});

@@ -10,7 +10,7 @@ var app = angular.module("sparrerApp", ['ngRoute', 'ngMaterial'])
 
 		$routeProvider.when('/play/:language?', {
 			templateUrl: 'play.html',
-			controller: 'playController'
+			controller: 'playController',
 		}).when('/start', {
 			templateUrl: 'start.html',
 			controller: 'startController'
