@@ -67,6 +67,28 @@ LANGUAGE_NAME_TO_NUMBER_MAP = {
 	"no" : 8,
 }
 
+SINGLE_WORD_NOT_FOUND = [
+  "The word %s is not available.", 
+  "The word %s is not available.", 
+  "The word %s is not available.", 
+  "The word %s is not available.", 
+  "The word %s is not available.", 
+  "The word %s is not available.", 
+  "The word %s is not available.", 
+  "Ordet %s er ikke tilgjengelig denne runden.", 
+]
+
+MULTIPLE_WORDS_NOT_FOUND = [
+  "The words %s are not available.", 
+  "The words %s are not available.", 
+  "The words %s are not available.", 
+  "The words %s are not available.", 
+  "The words %s are not available.", 
+  "The words %s are not available.", 
+  "The words %s are not available.", 
+  "Ordene %s er ikke tilgjengelig denne runden.", 
+]
+
 def read_weighted(filename):
   words = []
   number = 0
@@ -112,11 +134,11 @@ class GameServer(object):
 
     if illegal_words:
       if len(illegal_words) == 1:
-        response["error"] = 'The word "' + \
-          ' '.join(illegal_words).strip() + '" is not available.'
+        response["error"] = SINGLE_WORD_NOT_FOUND[LANGUAGE_NAME_TO_NUMBER_MAP[language]-1] % \
+          ' '.join(illegal_words).strip()
       else:
-        response["error"] = 'The words "' + \
-          ' '.join(illegal_words).strip() + '" are not available.'
+        response["error"] = MULTIPLE_WORDS_NOT_FOUND[LANGUAGE_NAME_TO_NUMBER_MAP[language]-1] % \
+          ' '.join(illegal_words).strip()
       return response
 
     response["used_words"] = used_words
