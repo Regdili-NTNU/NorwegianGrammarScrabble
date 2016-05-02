@@ -64,6 +64,7 @@ LANGUAGE_NAME_TO_NUMBER_MAP = {
 	"zh" : 5,
 	"ar" : 6,
 	"bg" : 7,
+	"no" : 8,
 }
 
 def read_weighted(filename):
