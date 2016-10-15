@@ -8,11 +8,14 @@ import json
 import random
 import urllib, urllib2
 import xml.etree.ElementTree as ET
+import ast
 import time
 
 PARSE_ADDRESS = "http://regdili.hf.ntnu.no:8081/malgram/rest/parse"
 ERROR_ADDRESS = "http://regdili.hf.ntnu.no:8081/malgram/rest/messages"
 GENERATE_ADDRESS = "http://regdili.hf.ntnu.no:8081/bongram/rest/generate"
+
+SCORE_FILE = 'storage/scores.dv'
 
 WORD_BLACKLIST = [
   "period",
@@ -115,7 +118,14 @@ class GameServer(object):
 
   def __init__(self):
     self.parses = 0
-    self.scores = []
+    self.scores = self.read_scores()
+
+  def read_scores(self):
+    scores = []
+    with open(SCORE_FILE, 'r') as scorefile:
+      for line in scorefile:
+        scores.append(ast.literal_eval(line.strip()))
+    return scores
 
   def call_chain(self, sentence, language, available_words):
     response = {"original_sentence" : sentence}
@@ -272,7 +282,7 @@ class GameServer(object):
     self.scores = sorted(self.scores, key=lambda score: score["score"], reverse=True)
     if len(self.scores) > 25:
       self.scores = self.scores[:25]
-    with open('storage/scores.dv', 'w') as scorefile:
+    with open(SCORE_FILE, 'w') as scorefile:
       for score in self.scores:
         scorefile.write(str(score) + "\n")
 
