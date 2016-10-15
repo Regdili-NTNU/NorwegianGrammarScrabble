@@ -92,6 +92,8 @@ MULTIPLE_WORDS_NOT_FOUND = [
   "Ordene %s er ikke tilgjengelig denne runden.", 
 ]
 
+ONE_WEEK = 60 * 60 * 24 * 7
+
 def read_weighted(filename):
   words = []
   number = 0
@@ -278,10 +280,10 @@ class GameServer(object):
     request = cherrypy.request.json
     score = request.get("score")
     username = request.get("username")
-    self.scores.append({"score" : score, "user" : username, "timestamp" : time.time()})
+    now = time.time()
+    self.scores.append({"score" : score, "user" : username, "timestamp" : now})
     self.scores = sorted(self.scores, key=lambda score: score["score"], reverse=True)
-    if len(self.scores) > 25:
-      self.scores = self.scores[:25]
+    self.scores = [score for i, score in enumerate(self.scores) if i < 10 or now - score["timestamp"] < ONE_WEEK][:25]
     with open(SCORE_FILE, 'w') as scorefile:
       for score in self.scores:
         scorefile.write(str(score) + "\n")
@@ -293,7 +295,30 @@ class GameServer(object):
     for score in self.scores:
       response.append(score) 
     return json.dumps({'scores' : response})
-    
+
+  @cherrypy.expose
+  @cherrypy.tools.json_out()
+  def get_high_scores(self):
+    response = []
+    for score in self.scores:
+      response.append(score) 
+      if len(response) > 10:
+        break
+    return json.dumps({'scores' : response})
+
+  @cherrypy.expose
+  @cherrypy.tools.json_out()
+  def get_weekly_scores(self):
+    response = []
+    now = time.time() 
+    for score in self.scores:
+      timestamp = score["timestamp"]
+      if (now - timestamp) < ONE_WEEK:
+        response.append(score) 
+        if len(response) > 10:
+          break
+    return json.dumps({'scores' : response})
+   
 class WebPage(object):
   pass
 
