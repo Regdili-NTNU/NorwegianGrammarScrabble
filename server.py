@@ -290,14 +290,6 @@ class GameServer(object):
 
   @cherrypy.expose
   @cherrypy.tools.json_out()
-  def get_scores(self):
-    response = []
-    for score in self.scores:
-      response.append(score) 
-    return json.dumps({'scores' : response})
-
-  @cherrypy.expose
-  @cherrypy.tools.json_out()
   def get_high_scores(self):
     response = []
     for score in self.scores:
