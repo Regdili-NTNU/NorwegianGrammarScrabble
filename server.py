@@ -158,7 +158,7 @@ class GameServer(object):
     return response
 
   def call_parse(self, sentence):
-    request = {"statement" : sentence, "client" : "pre_scrabble", "readings" : 1}
+    request = {"statement" : sentence, "client" : "crabble", "readings" : 25}
     request_address = PARSE_ADDRESS + "?" + urllib.urlencode(request)
     response = urllib2.urlopen(request_address).read()
     return ET.fromstring(response)
@@ -269,9 +269,9 @@ class GameServer(object):
     score = request.get("score")
     username = request.get("username")
     self.scores.append({"score" : score, "user" : username, "timestamp" : time.time()})
-    if len(self.scores) > 100:
-      self.scores = []
     self.scores = sorted(self.scores, key=lambda score: score["score"], reverse=True)
+    if len(self.scores) > 25:
+      self.scores = self.scores[:25]
 
   @cherrypy.expose
   @cherrypy.tools.json_out()
