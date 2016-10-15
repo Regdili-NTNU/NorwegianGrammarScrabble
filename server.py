@@ -272,6 +272,9 @@ class GameServer(object):
     self.scores = sorted(self.scores, key=lambda score: score["score"], reverse=True)
     if len(self.scores) > 25:
       self.scores = self.scores[:25]
+    with open('storage/scores.dv', 'w') as scorefile:
+      for score in self.scores:
+        scorefile.write(str(score) + "\n")
 
   @cherrypy.expose
   @cherrypy.tools.json_out()
