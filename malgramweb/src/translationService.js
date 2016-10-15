@@ -111,12 +111,20 @@ app.service('translationService', function($window) {
 		return 'points';
 	}
 
-	this.high_score_string = function() {
+	this.all_time_high_score_string = function() {
 		var language = this.getLanguage();
 		if (language == 'no') {
 			return 'Poengtavle';
 		}
 		return 'High Score';
+	}
+
+	this.weekly_high_score_string = function() {
+		var language = this.getLanguage();
+		if (language == 'no') {
+			return 'Ukas beste';
+		}
+		return 'High score of the week';
 	}
 
 	this.great_work_string = function() {

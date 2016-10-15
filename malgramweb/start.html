@@ -2,14 +2,29 @@
 				<ui-view layout="column" layout-align="start center" layout-fill layout-padding dir="{{ts.getRtl()}}">
 					<md-card class="md-primary">
 						<md-card-content>
-						<h1>{{ts.high_score_string()}}</h1>
-						<div class="score-item" ng-repeat="score in scores">
+						<h1>{{ts.weekly_high_score_string()}}</h1>
+						<div class="score-item" ng-repeat="score in weekly_scores">
 							<div layout="row" layout-align="space-between">
 								<div>{{score.user}}</div>
 								<div>{{score.score}}</div>
 							</div>
 						</div>
-						<div ng-if="scores.length == 0">
+						<div ng-if="weekly_scores.length == 0">
+							{{ts.no_score_string()}}
+						</div>
+						</md-card-content>
+					</md-card>
+
+					<md-card class="md-primary">
+						<md-card-content>
+						<h1>{{ts.all_time_high_score_string()}}</h1>
+						<div class="score-item" ng-repeat="score in alltime_scores">
+							<div layout="row" layout-align="space-between">
+								<div>{{score.user}}</div>
+								<div>{{score.score}}</div>
+							</div>
+						</div>
+						<div ng-if="alltime_scores.length == 0">
 							{{ts.no_score_string()}}
 						</div>
 						</md-card-content>
