@@ -294,7 +294,7 @@ class GameServer(object):
     response = []
     for score in self.scores:
       response.append(score) 
-      if len(response) > 10:
+      if len(response) > 4:
         break
     return json.dumps({'scores' : response})
 
@@ -307,7 +307,7 @@ class GameServer(object):
       timestamp = score["timestamp"]
       if (now - timestamp) < ONE_WEEK:
         response.append(score) 
-        if len(response) > 10:
+        if len(response) > 9:
           break
     return json.dumps({'scores' : response})
    
