@@ -3,7 +3,6 @@
 
 import os
 import cherrypy
-# import parser
 import json
 import random
 import urllib, urllib2
@@ -11,9 +10,13 @@ import xml.etree.ElementTree as ET
 import ast
 import time
 
-PARSE_ADDRESS = "http://regdili.hf.ntnu.no:8081/malgram/rest/parse"
-ERROR_ADDRESS = "http://regdili.hf.ntnu.no:8081/malgram/rest/messages"
-GENERATE_ADDRESS = "http://regdili.hf.ntnu.no:8081/bongram/rest/generate"
+PARSE_ADDRESS = "http://xregdili.hf.ntnu.no:8081/malgram/rest/parse"
+ERROR_ADDRESS = "http://xregdili.hf.ntnu.no:8081/malgram/rest/messages"
+GENERATE_ADDRESS = "http://xregdili.hf.ntnu.no:8081/bongram/rest/generate"
+
+# PARSE_ADDRESS = "http://192.168.0.122:8081/MalgramRest/parse"
+# ERROR_ADDRESS = "http://192.168.0.122:8081/MalgramRest/messages"
+# GENERATE_ADDRESS = "http://192.168.0.122:8081/BongramRest/generate"
 
 SCORE_FILE = 'storage/scores.dv'
 
@@ -107,13 +110,13 @@ def read_weighted(filename):
       if len(line) == 1:
         words.append(line[0])
       elif len(line) == 3:
-        for i in xrange(int(line[-1])):
+        for i in range(int(line[-1])):
           words.append(line[0])
   return number, words
 
 word_lists = []
 for filename in os.listdir(os.getcwd() + "/words"):
-  print "Reading file " + filename
+  print( "Reading file " + filename)
   word_lists.append(read_weighted("words/" + filename))
 
 class GameServer(object):
@@ -137,7 +140,6 @@ class GameServer(object):
     if readings <= 0:
        response["error"] = parse_xml.find("error").text
        return response
-
     best_index = self.find_best_parse_index(parse_xml, available_words)
     best_parse = self.get_parse_number(parse_xml, best_index)
 
@@ -170,9 +172,10 @@ class GameServer(object):
     return response
 
   def call_parse(self, sentence):
-    request = {"statement" : sentence, "client" : "crabble", "readings" : 25}
-    request_address = PARSE_ADDRESS + "?" + urllib.urlencode(request)
-    response = urllib2.urlopen(request_address).read()
+    dict = {"statement" : sentence, "client" : "crab", "readings" : 25}
+    data = json.dumps(dict)
+    req = urllib2.Request(PARSE_ADDRESS, data=data) 
+    response = urllib2.urlopen(req).read()
     return ET.fromstring(response)
 
   # Returns the index of the best parse in the result, defined by how well it
@@ -180,7 +183,7 @@ class GameServer(object):
   def find_best_parse_index(self, parse_xml, available_words):
     best_index = -1
     best_score = 1e10
-    for index, syntax_tree in enumerate(parse_xml.iter("syntax-tree")):
+    for index, syntax_tree in enumerate(parse_xml.iter("syntaxtree")):
       used_words = self.find_words_in_syntax_tree(syntax_tree)
       illegal_words = self.check_words(used_words, available_words)
       if len(illegal_words) == 0:
@@ -210,7 +213,7 @@ class GameServer(object):
     return words
 
   def get_parse_number(self, parse_xml, index):
-    for i, syntax_tree in enumerate(parse_xml.iter("syntax-tree")):
+    for i, syntax_tree in enumerate(parse_xml.iter("syntaxtree")):
       if i == index:
         return syntax_tree 
 
@@ -229,22 +232,29 @@ class GameServer(object):
   def call_error(self, syntax_tree, language):
     language_number = LANGUAGE_NAME_TO_NUMBER_MAP.get(language)
     if language_number == None: language_number = 1
-    request = {"syntax" : ET.tostring(syntax_tree), "language" : language_number}
-    request_address = ERROR_ADDRESS + "?" + urllib.urlencode(request)
-    response = urllib2.urlopen(request_address).read()
+   
+    dict = {"syntax" : ET.tostring(syntax_tree, encoding='utf-8'), "language" : str(language_number)}
+    data = json.dumps(dict)
+    req = urllib2.Request(ERROR_ADDRESS, data=data) 
+    response = urllib2.urlopen(req).read()
+
     return ET.fromstring(response)
 
   def add_error_messages(self, error_xml):
     error_messages = []
+    if error_xml == "" or error_xml == None:
+      return error_messages
     for message in error_xml.iter("message"):
       error_messages.append(message.text)
     return error_messages
 
-  def call_generate(self, mrs, sentence):
-    request = {"statement" : sentence, "mrs" : ET.tostring(mrs), "client" : "pre_scrabble"}
-    request_address = GENERATE_ADDRESS + "?" + urllib.urlencode(request)
-    response = urllib2.urlopen(request_address).read()
+  def call_generate(self, mrs, statement):
+    dict = {"statement": statement, "mrs": ET.tostring(mrs, encoding='utf-8'), "client": "scrab"}
+    data = json.dumps(dict)
+    req = urllib2.Request(GENERATE_ADDRESS, data=data) 
+    response = urllib2.urlopen(req).read()
     return ET.fromstring(response)
+  
 
   @cherrypy.expose
   @cherrypy.tools.json_in()
@@ -270,7 +280,7 @@ class GameServer(object):
     return json.dumps(response)
 
   @cherrypy.expose
-  @cherrypy.tools.json_out()
+  @cherrypy.tools.json_out() 
   def count(self):
     return json.dumps({'parses' : self.parses})
 
@@ -325,6 +335,7 @@ cherrypy.config.update({
 
 cherrypy.tree.mount(GameServer(), "/server")
 cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/home/regdili/scrabble/malgramweb", "tools.staticdir.index" : "index.html"}})
+# cherrypy.tree.mount(WebPage(), "/page", {"/" : {"tools.staticdir.on" : True, "tools.staticdir.dir" : "/Prosjekt/python/NorwegianGrammarScrabble/malgramweb", "tools.staticdir.index" : "index.html"}})
 
 cherrypy.engine.start()
 cherrypy.engine.block()
