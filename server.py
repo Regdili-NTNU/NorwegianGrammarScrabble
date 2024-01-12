@@ -3,7 +3,7 @@
 
 import os
 import cherrypy
-import parser
+# import parser
 import json
 import random
 import urllib, urllib2
