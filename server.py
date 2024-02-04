@@ -133,7 +133,6 @@ class GameServer(object):
     return scores
 	  
   def process_error(self, record):
-    print '---> '+record+'<---'
     index = record.find('lexemes do not span')
     if index > -1:
       beg = record.find('`')
