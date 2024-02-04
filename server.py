@@ -131,14 +131,27 @@ class GameServer(object):
       for line in scorefile:
         scores.append(ast.literal_eval(line.strip()))
     return scores
-
+	  
+  def process_error(self, record):
+    print '---> '+record+'<---'
+    index = record.find('lexemes do not span')
+    if index > -1:
+      beg = record.find('`')
+      end = record.find("'")
+      if beg > -1 and end > -1:
+        return 'Lexicon entry: "'+record[beg+1:end]+'" is missing'
+    index = record.find('NOTE: 0 readings')
+    if index > -1:
+      return 'Ungrammatical in Norwegian'
+    return record
+	  
   def call_chain(self, sentence, language, available_words):
     response = {"original_sentence" : sentence}
     parse_xml = self.call_parse(sentence)
 
     readings = int(parse_xml.find("readings").text)
     if readings <= 0:
-       response["error"] = parse_xml.find("error").text
+       response["error"] = self.process_error(parse_xml.find("error").text)
        return response
     best_index = self.find_best_parse_index(parse_xml, available_words)
     best_parse = self.get_parse_number(parse_xml, best_index)
